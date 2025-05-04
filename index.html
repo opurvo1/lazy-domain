@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lazy Domain - URL Shortener</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      width: 300px;
+    }
+    .ad {
+      margin-top: 30px;
+      border: 1px dashed #ccc;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lazy Domain</h1>
+  <p>Shorten your long URLs easily</p>
+  <input type="text" id="longUrl" placeholder="Enter your long URL here">
+  <button onclick="shortenUrl()">Shorten</button>
+  <p id="result"></p>
+
+  <script>
+    function shortenUrl() {
+      const url = document.getElementById("longUrl").value;
+      if (!url) return alert("Please enter a URL");
+
+      const short = "https://yourusername.github.io/lazy-domain/?go=" + btoa(url);
+      document.getElementById("result").innerHTML =
+        `<strong>Short URL:</strong> <a href="${short}" target="_blank">${short}</a>`;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("go")) {
+      const target = atob(params.get("go"));
+      document.body.innerHTML = `
+        <h2>Loading Ad...</h2>
+        <div class="ad">
+          <!-- Paste your ad code below -->
+          <p><em>Your ad will appear here.</em></p>
+          <!-- Example: Google AdSense script or AdFly banner -->
+        </div>
+        <p>Redirecting in 3 seconds...</p>
+      `;
+      setTimeout(() => {
+        window.location.href = target;
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
